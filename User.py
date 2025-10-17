@@ -1,5 +1,11 @@
 from Project import Project
 from custum_exception import CustomError
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+MAX_NUMBER_OF_PROJECT = os.getenv('MAX_NUMBER_OF_PROJECT')
 
 class User:
     def __init__(self):
@@ -15,6 +21,8 @@ class User:
         p = Project(name, description)        
         if self.index(name) != -1:
             raise CustomError('its already exists')
+        elif len(self._projects >= MAX_NUMBER_OF_PROJECT):
+            raise CustomError('MAX number of projects')
         else:
             self._projects.append(p)
             print('task added successfuly')
