@@ -30,6 +30,8 @@ class Task:
     def name(self, name:str)->None:
         if len(name.split()) > 30:
             raise CustomError('len name must be le 30 words')
+        if not name:
+            raise CustomError('name cant be empty')
         self._name = name
 
     @description.setter
