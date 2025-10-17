@@ -88,3 +88,11 @@ class Project:
             if t.deadline != '':  
                 print(f'deadline: {t.deadline}')    
         
+    def __eq__(self, name:str):
+        if self.name == name:
+            return True
+        else:
+            return False
+        
+                
+        
