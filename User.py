@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-MAX_NUMBER_OF_PROJECT = os.getenv('MAX_NUMBER_OF_PROJECT')
+MAX_NUMBER_OF_PROJECT = int(os.getenv('MAX_NUMBER_OF_PROJECT'))
 
 class User:
     def __init__(self):
@@ -15,13 +15,14 @@ class User:
         for i in range(len(self._projects)):
             if self._projects[i] == name:
                 return i
-            return -1
+        return -1
     
     def add_project(self, name:str, description:str):
         p = Project(name, description)        
         if self.index(name) != -1:
+            print(self.index(name))
             raise CustomError('its already exists')
-        elif len(self._projects >= MAX_NUMBER_OF_PROJECT):
+        elif len(self._projects) >= MAX_NUMBER_OF_PROJECT:
             raise CustomError('MAX number of projects')
         else:
             self._projects.append(p)
@@ -47,7 +48,7 @@ class User:
 
     def edit_project_description(self, name:str, new_description:str):
         idx = self.index(name)
-        self._projects[idx].descriptin = new_description
+        self._projects[idx].description = new_description
 
     def show_projects(self):
         for p in self._projects:
