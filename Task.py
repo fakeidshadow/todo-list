@@ -23,7 +23,7 @@ class Task:
     
     @property
     def description(self)->str:
-        return self._deadline
+        return self._description
     
 
     @name.setter
