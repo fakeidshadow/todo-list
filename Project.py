@@ -26,6 +26,8 @@ class Project:
     def name(self, name:str)->None:
         if len(name.split()) > 30:
             raise CustomError('len name must be le 30 words')
+        if not name:
+            raise CustomError('name cant be empty')
         self._name = name
 
     @description.setter
@@ -33,7 +35,6 @@ class Project:
         if len(description.split()) > 150:
             raise CustomError('len name must be le 30 words')
         self._description=description
-
 
     def index(self, name:str):
         for i in range(len(self._tasks)):
@@ -70,33 +71,44 @@ class Project:
             raise CustomError('task exist with this name')
         else:
             self._tasks[idx].name = new_name
+            print('task name edited successfuly')
+
 
     def edit_task_status(self, name:str, new_status:int):
         idx = self.index(name)
         self._tasks[idx].status = new_status
+        print('task status edited successfuly')
+
 
     
     def edit_task_description(self, name:str, new_description:str):
         idx = self.index(name)
         self._tasks[idx].descriptin = new_description
+        print('task description edited successfuly')
+
 
     def edit_task_deadline(self, name:str, new_deadline:str):
         idx = self.index(name)
         self._tasks[idx].deadline = new_deadline
+        print('task deadline edited successfuly')
+
 
 
     def show_tasks(self):
-        for t in self._tasks:
-            status = 'todo'
-            if t.status == 1:
-                status = 'doing'
-            if t.status == 2:
-                status = 'done'
-            print(f'name: {t.name}')    
-            print(f'description: {t.description}')    
-            print(f'status: {status}')  
-            if t.deadline != '':  
-                print(f'deadline: {t.deadline}')    
+        if not self._tasks:
+            print('There is no task')
+        else:
+            for t in self._tasks:
+                status = 'todo'
+                if t.status == 1:
+                    status = 'doing'
+                if t.status == 2:
+                    status = 'done'
+                print(f'name: {t.name}')    
+                print(f'description: {t.description}')    
+                print(f'status: {status}')  
+                if t.deadline != '':  
+                    print(f'deadline: {t.deadline}')    
         
     def __eq__(self, name:str):
         if self.name == name:
