@@ -56,3 +56,9 @@ class Task:
         else:
             self._deadline = deadline
 
+
+    def __eq__(self, name:str):
+        if self.name == name:
+            return True
+        else:
+            return False
