@@ -2,8 +2,8 @@ from Task import Task
 
 class Project:
     def __init__(self, name:str, description:str):
-        self.name(name)
-        self.description(description)
+        self.name = name
+        self.description= description
         self._tasks = []
     
     @property
@@ -22,7 +22,7 @@ class Project:
         self._name = name
 
     @description.setter
-    def status(self, description:str)->None:
+    def description(self, description:str)->None:
         if len(description.split()) > 150:
             print('len name must be le 30 words')
         self._description=description
