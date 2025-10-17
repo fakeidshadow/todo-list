@@ -46,8 +46,8 @@ def print_edit_tasks_menu():
     print('2  -> edit task name')
     print('3  -> edit task description')
     print('4  -> edit task status')
-    print('4  -> edit task deadline')
-    print('5  -> delete task')
+    print('5  -> edit task deadline')
+    print('6  -> delete task')
     print('7  -> show tasks')
     print('-1 -> exit')
 
@@ -63,19 +63,33 @@ def edit_project_tasks(user:User):
         print_edit_tasks_menu()
         command = input()
         if command == '1':
-            pass
+            name = input('Enter your task neme')
+            description = input('Enter your task description')
+            status = input('Enter your task status')
+            deadline = input('Enter your task deadline')
+            user._projects[PROJECT_IDX].add_task(name, description, status, deadline)
         elif command == '2':
-            pass
+            name = input('Enter your task name')
+            new_name = input('Enter your task new name')
+            user._projects[PROJECT_IDX].edit_task_name(name, new_name)
         elif command == '3':
-            pass
+            name = input('Enter your task name')
+            new_description = input('Enter your task new description')
+            user._projects[PROJECT_IDX].edit_rask_description(name, new_description)
         elif command == '4':
-            pass
+            name = input('Enter your task name')
+            new_status = input('Enter your task new status')
+            user._projects[PROJECT_IDX].edit_rask_status(name, new_status)
         elif command == '5':
-            pass
+            name = input('Enter your task name')
+            new_deadline = input('Enter your task new deadline')
+            user._projects[PROJECT_IDX].edit_rask_deadline(name, new_deadline)
         elif command == '6':
-            pass
+            name = input('Enter your task name')
+            user._projects[PROJECT_IDX].del_task(name)
         elif command == '7':
-            pass
+            user._projects[PROJECT_IDX].show_tasks()
         elif command != '-1':
-            pass
+            print('choose between options')
+            
 
