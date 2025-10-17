@@ -45,14 +45,21 @@ class User:
             raise CustomError('task exist with this name')
         else:
             self._projects[idx].name = new_name
+            print('project name edited successfuly')
+
 
     def edit_project_description(self, name:str, new_description:str):
         idx = self.index(name)
         self._projects[idx].description = new_description
+        print('project description edited successfuly')
+
 
     def show_projects(self):
-        for p in self._projects:
-            print(f'name: {p.name}')    
-            print(f'description: {p.description}')    
-            print(f'NO. tasks: {len(p._tasks)}')
+        if not self._projects:
+            print('There is no project')
+        else:
+            for p in self._projects:
+                print(f'name: {p.name}')    
+                print(f'description: {p.description}')    
+                print(f'NO. tasks: {len(p._tasks)}')
 
