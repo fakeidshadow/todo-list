@@ -40,3 +40,9 @@ class User:
         idx = self.index(name)
         self._projects[idx].descriptin = new_description
 
+    def show_projects(self):
+        for p in self._projects:
+            print(f'name: {p.name}')    
+            print(f'description: {p.description}')    
+            print(f'NO. tasks: {len(p._tasks)}')
+
