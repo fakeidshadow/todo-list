@@ -1,4 +1,6 @@
 from datetime import datetime
+from custum_exception import CustomError
+
 
 class Task:
     def __init__(self, name:str, description:str, status:int=0, deadline:str=''):
@@ -27,20 +29,20 @@ class Task:
     @name.setter
     def name(self, name:str)->None:
         if len(name.split()) > 30:
-            print('len name must be le 30 words')
+            raise CustomError('len name must be le 30 words')
         self._name = name
 
     @description.setter
     def description(self, description:str)->None:
         if len(description.split()) > 150:
-            print('len name must be le 30 words')
+            raise CustomError('len name must be le 30 words')
         self._description=description
 
     
     @status.setter
     def status(self, status:int)->None:
         if status > 2 or status < 0:
-            print('status only can be 0,1,2')
+            raise CustomError('status only can be 0,1,2')
         self._status = status
 
     
@@ -50,11 +52,12 @@ class Task:
             try:
                 datetime.strptime(deadline, '%Y-%m-%d')
             except ValueError:
-                print('deadline is invalid')
+                raise CustomError('deadline is invalid')
             else:
                 self._deadline = deadline
         else:
             self._deadline = deadline
+
 
 
     def __eq__(self, name:str):
@@ -62,3 +65,5 @@ class Task:
             return True
         else:
             return False
+        
+        

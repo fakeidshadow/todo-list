@@ -1,4 +1,5 @@
 from User import User
+from custum_exception import CustomError
 
 PROJECT_IDX = -1
 
@@ -18,27 +19,30 @@ def start():
     while command != '-1':
         print_main_menu()
         command = input()
-        if command == '1':
-            name = input('Enter your project name')
-            description = input('Enter your project description')
-            user.add_project(name, description)
-        elif command == '2':
-            edit_project_tasks(user)
-        elif command == '3':
-            name = input('Enter your project name')
-            new_name = input('Enter your project new name')
-            user.edit_project_name(name, new_name)
-        elif command == '4':
-            name = input('Enter your project name')
-            new_description = input('Enter your project new description')
-            user.edit_project_description(name, new_description)
-        elif command == '5':
-            name = input('Enter your project name')
-            user.del_project(name)
-        elif command == '6':
-            user.show_projects()
-        elif command != '-1':
-            print('choose between options')
+        try:
+            if command == '1':
+                name = input('Enter your project name')
+                description = input('Enter your project description')
+                user.add_project(name, description)
+            elif command == '2':
+                edit_project_tasks(user)
+            elif command == '3':
+                name = input('Enter your project name')
+                new_name = input('Enter your project new name')
+                user.edit_project_name(name, new_name)
+            elif command == '4':
+                name = input('Enter your project name')
+                new_description = input('Enter your project new description')
+                user.edit_project_description(name, new_description)
+            elif command == '5':
+                name = input('Enter your project name')
+                user.del_project(name)
+            elif command == '6':
+                user.show_projects()
+            elif command != '-1':
+                print('choose between options')
+        except CustomError as e:
+            print(e)
 
 def print_edit_tasks_menu():
     print('- '*10)
@@ -62,34 +66,37 @@ def edit_project_tasks(user:User):
     while command != '-1':
         print_edit_tasks_menu()
         command = input()
-        if command == '1':
-            name = input('Enter your task neme')
-            description = input('Enter your task description')
-            status = input('Enter your task status')
-            deadline = input('Enter your task deadline')
-            user._projects[PROJECT_IDX].add_task(name, description, status, deadline)
-        elif command == '2':
-            name = input('Enter your task name')
-            new_name = input('Enter your task new name')
-            user._projects[PROJECT_IDX].edit_task_name(name, new_name)
-        elif command == '3':
-            name = input('Enter your task name')
-            new_description = input('Enter your task new description')
-            user._projects[PROJECT_IDX].edit_rask_description(name, new_description)
-        elif command == '4':
-            name = input('Enter your task name')
-            new_status = input('Enter your task new status')
-            user._projects[PROJECT_IDX].edit_rask_status(name, new_status)
-        elif command == '5':
-            name = input('Enter your task name')
-            new_deadline = input('Enter your task new deadline')
-            user._projects[PROJECT_IDX].edit_rask_deadline(name, new_deadline)
-        elif command == '6':
-            name = input('Enter your task name')
-            user._projects[PROJECT_IDX].del_task(name)
-        elif command == '7':
-            user._projects[PROJECT_IDX].show_tasks()
-        elif command != '-1':
-            print('choose between options')
+        try:
+            if command == '1':
+                name = input('Enter your task neme')
+                description = input('Enter your task description')
+                status = input('Enter your task status')
+                deadline = input('Enter your task deadline')
+                user._projects[PROJECT_IDX].add_task(name, description, status, deadline)
+            elif command == '2':
+                name = input('Enter your task name')
+                new_name = input('Enter your task new name')
+                user._projects[PROJECT_IDX].edit_task_name(name, new_name)
+            elif command == '3':
+                name = input('Enter your task name')
+                new_description = input('Enter your task new description')
+                user._projects[PROJECT_IDX].edit_rask_description(name, new_description)
+            elif command == '4':
+                name = input('Enter your task name')
+                new_status = input('Enter your task new status')
+                user._projects[PROJECT_IDX].edit_rask_status(name, new_status)
+            elif command == '5':
+                name = input('Enter your task name')
+                new_deadline = input('Enter your task new deadline')
+                user._projects[PROJECT_IDX].edit_rask_deadline(name, new_deadline)
+            elif command == '6':
+                name = input('Enter your task name')
+                user._projects[PROJECT_IDX].del_task(name)
+            elif command == '7':
+                user._projects[PROJECT_IDX].show_tasks()
+            elif command != '-1':
+                print('choose between options')
+        except CustomError as e:
+            print(e)
             
 

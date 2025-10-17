@@ -1,4 +1,5 @@
 from Task import Task
+from custum_exception import CustomError
 
 class Project:
     def __init__(self, name:str, description:str):
@@ -18,13 +19,13 @@ class Project:
     @name.setter
     def name(self, name:str)->None:
         if len(name.split()) > 30:
-            print('len name must be le 30 words')
+            raise CustomError('len name must be le 30 words')
         self._name = name
 
     @description.setter
     def description(self, description:str)->None:
         if len(description.split()) > 150:
-            print('len name must be le 30 words')
+            raise CustomError('len name must be le 30 words')
         self._description=description
 
 
@@ -37,7 +38,7 @@ class Project:
     def add_task(self, name:str, description:str, status:int=0, deadline:str=''):
         t = Task(name, description, status, deadline)
         if self.index(name) != -1:
-            print('its already exists')
+            raise CustomError('its already exists')
         else:
             self._tasks.append(t)
             print('task added successfuly')
@@ -46,7 +47,7 @@ class Project:
     def del_task(self, name:str):
         idx = self.index(name)
         if idx == -1:
-            print('task doesnt exist')
+            raise CustomError('task doesnt exist')
         else:
             self._tasks.pop(idx)
             print('task deleted successfuly')
@@ -55,9 +56,9 @@ class Project:
         idx = self.index(name)
         idx_new = self.index(new_name)
         if idx == -1:
-            print('task doesnt exist')
+            raise CustomError('task doesnt exist')
         elif idx_new != -1 and idx_new != idx:
-            print('task exist with this name')
+            raise CustomError('task exist with this name')
         else:
             self._tasks[idx].name = new_name
 
@@ -94,5 +95,4 @@ class Project:
         else:
             return False
         
-                
         

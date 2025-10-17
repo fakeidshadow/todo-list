@@ -1,4 +1,5 @@
 from Project import Project
+from custum_exception import CustomError
 
 class User:
     def __init__(self):
@@ -13,7 +14,7 @@ class User:
     def add_project(self, name:str, description:str):
         p = Project(name, description)        
         if self.index(name) != -1:
-            print('its already exists')
+            raise CustomError('its already exists')
         else:
             self._projects.append(p)
             print('task added successfuly')
@@ -21,7 +22,7 @@ class User:
     def del_project(self, name:str):
         idx = self.index(name)
         if idx == -1:
-            print('task doesnt exist')
+            raise CustomError('task doesnt exist')
         else:
             self._projects.pop(idx)
             print('task deleted successfuly')
@@ -30,9 +31,9 @@ class User:
         idx = self.index(name)
         idx_new = self.index(new_name)
         if idx == -1:
-            print('task doesnt exist')
+            raise CustomError('task doesnt exist')
         elif idx_new != -1 and idx_new != idx:
-            print('task exist with this name')
+            raise CustomError('task exist with this name')
         else:
             self._projects[idx].name = new_name
 
