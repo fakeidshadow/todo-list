@@ -2,10 +2,10 @@ from datetime import datetime
 
 class Task:
     def __init__(self, name:str, description:str, status:int=0, deadline:str=''):
-        self.name(name)
-        self.status(status)
-        self.deadline(deadline)
-        self.description(description)
+        self.name = name
+        self.status = status
+        self.deadline = deadline
+        self.description = description
     
     @property
     def name(self)->str:
@@ -31,7 +31,7 @@ class Task:
         self._name = name
 
     @description.setter
-    def status(self, description:str)->None:
+    def description(self, description:str)->None:
         if len(description.split()) > 150:
             print('len name must be le 30 words')
         self._description=description
