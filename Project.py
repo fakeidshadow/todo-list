@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-MAX_NUMBER_OF_TASK = os.getenv('MAX_NUMBER_OF_TASK')
+MAX_NUMBER_OF_TASK = int(os.getenv('MAX_NUMBER_OF_TASK'))
 
 class Project:
     def __init__(self, name:str, description:str):
@@ -19,7 +19,7 @@ class Project:
     
     @property
     def description(self)->str:
-        return self._deadline
+        return self._description
     
 
     @name.setter
@@ -39,13 +39,14 @@ class Project:
         for i in range(len(self._tasks)):
             if self._tasks[i] == name:
                 return i
-            return -1
+        return -1
 
     def add_task(self, name:str, description:str, status:int=0, deadline:str=''):
         t = Task(name, description, status, deadline)
         if self.index(name) != -1:
+            print(self.index(name))
             raise CustomError('its already exists')
-        elif len(self._tasks >= MAX_NUMBER_OF_TASK):
+        elif len(self._tasks) >= MAX_NUMBER_OF_TASK:
             raise CustomError('MAX number of tasks')
         else:
             self._tasks.append(t)
@@ -70,18 +71,18 @@ class Project:
         else:
             self._tasks[idx].name = new_name
 
-    def edit_rask_status(self, name:str, new_status:int):
+    def edit_task_status(self, name:str, new_status:int):
         idx = self.index(name)
         self._tasks[idx].status = new_status
 
     
-    def edit_rask_description(self, name:str, new_description:str):
+    def edit_task_description(self, name:str, new_description:str):
         idx = self.index(name)
         self._tasks[idx].descriptin = new_description
 
-    def edit_rask_deadline(self, name:str, new_deadline:str):
+    def edit_task_deadline(self, name:str, new_deadline:str):
         idx = self.index(name)
-        self._tasks[idx].status = new_deadline
+        self._tasks[idx].deadline = new_deadline
 
 
     def show_tasks(self):
@@ -90,7 +91,7 @@ class Project:
             if t.status == 1:
                 status = 'doing'
             if t.status == 2:
-                t.status = 'done'
+                status = 'done'
             print(f'name: {t.name}')    
             print(f'description: {t.description}')    
             print(f'status: {status}')  
