@@ -74,4 +74,17 @@ class Project:
         idx = self.index(name)
         self._tasks[idx].status = new_deadline
 
-    
+
+    def show_tasks(self):
+        for t in self._tasks:
+            status = 'todo'
+            if t.status == 1:
+                status = 'doing'
+            if t.status == 2:
+                t.status = 'done'
+            print(f'name: {t.name}')    
+            print(f'description: {t.description}')    
+            print(f'status: {status}')  
+            if t.deadline != '':  
+                print(f'deadline: {t.deadline}')    
+        
