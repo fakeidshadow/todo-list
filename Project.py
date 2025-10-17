@@ -4,7 +4,7 @@ class Project:
     def __init__(self, name:str, description:str):
         self.name(name)
         self.description(description)
-        list[Task]: self._tasks = []
+        self._tasks = []
     
     @property
     def name(self)->str:
@@ -28,6 +28,50 @@ class Project:
         self._description=description
 
 
+    def index(self, name:str):
+        for i in range(len(self._tasks)):
+            if self._tasks[i] == name:
+                return i
+            return -1
+
+    def add_task(self, name:str, description:str, status:int=0, deadline:str=''):
+        t = Task(name, description, status, deadline)
+        if self.index(name) != -1:
+            print('its already exists')
+        else:
+            self._tasks.append(t)
+            print('task added successfuly')
+
     
+    def del_task(self, name:str):
+        idx = self.index(name)
+        if idx == -1:
+            print('task doesnt exist')
+        else:
+            self._tasks.pop(idx)
+            print('task deleted successfuly')
+    
+    def edit_task_name(self, name:str, new_name:str):
+        idx = self.index(name)
+        idx_new = self.index(new_name)
+        if idx == -1:
+            print('task doesnt exist')
+        elif idx_new != -1 and idx_new != idx:
+            print('task exist with this name')
+        else:
+            self._tasks[idx].name = new_name
 
+    def edit_rask_status(self, name:str, new_status:int):
+        idx = self.index(name)
+        self._tasks[idx].status = new_status
 
+    
+    def edit_rask_description(self, name:str, new_description:str):
+        idx = self.index(name)
+        self._tasks[idx].descriptin = new_description
+
+    def edit_rask_deadline(self, name:str, new_deadline:str):
+        idx = self.index(name)
+        self._tasks[idx].status = new_deadline
+
+    
