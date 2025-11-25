@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b208947-91aa-48b2-9bdf-ec188064519b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/todo-list.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/todo/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/todo/env.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/todo/script.py.mako" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/todo/versions/3dfa919d0a49_create_task_table.py" afterDir="false" />
-    </list>
+    <list default="true" id="9b208947-91aa-48b2-9bdf-ec188064519b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +41,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "task",
     "last_opened_file_path": "/home/samyar/Desktop/todo-list",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -81,7 +70,7 @@
       <updated>1763244101049</updated>
       <workItem from="1763244102153" duration="415000" />
       <workItem from="1763284686347" duration="29000" />
-      <workItem from="1764067958361" duration="4215000" />
+      <workItem from="1764067958361" duration="5334000" />
     </task>
     <servers />
   </component>
