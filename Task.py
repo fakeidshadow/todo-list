@@ -6,13 +6,14 @@ class Task:
         self.status = status
         self.deadline = deadline
         self.description = description
+        self.closed_at = ""
     
     @property
     def name(self)->str:
         return self._name
     
     @property
-    def status(self)->str:
+    def status(self)->int:
         return self._status
     
     @property
@@ -22,7 +23,10 @@ class Task:
     @property
     def description(self)->str:
         return self._deadline
-    
+
+    @property
+    def closed_at(self) -> str:
+        return self.closed_at
 
     @name.setter
     def name(self, name:str)->None:
@@ -56,6 +60,17 @@ class Task:
         else:
             self._deadline = deadline
 
+    @closed_at.setter
+    def closed_at(self, closed_at: str) -> None:
+        if closed_at != '':
+            try:
+                datetime.strptime(closed_at, '%Y-%m-%d')
+            except ValueError:
+                print('deadline is invalid')
+            else:
+                self.closed_at = closed_at
+        else:
+            self.closed_at = closed_at
 
     def __eq__(self, name:str):
         if self.name == name:
