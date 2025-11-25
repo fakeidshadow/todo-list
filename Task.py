@@ -22,7 +22,7 @@ class Task:
     
     @property
     def description(self)->str:
-        return self._deadline
+        return self.description
 
     @property
     def closed_at(self) -> str:
