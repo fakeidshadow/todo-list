@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9b208947-91aa-48b2-9bdf-ec188064519b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alembic.ini" beforeDir="false" afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/custum_exception.py" beforeDir="false" afterPath="$PROJECT_DIR$/custum_exception.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo/env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo/script.py.mako" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo/versions/3dfa919d0a49_create_task_table.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/alembic/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/alembic/env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/project.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/project.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/task.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +83,7 @@
       <updated>1763244101049</updated>
       <workItem from="1763244102153" duration="415000" />
       <workItem from="1763284686347" duration="29000" />
-      <workItem from="1764067958361" duration="13844000" />
+      <workItem from="1764067958361" duration="18829000" />
     </task>
     <servers />
   </component>
