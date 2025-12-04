@@ -10,6 +10,7 @@ class User(Base):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
+    name = Column(String(30), unique=True)
 
     projects = relationship('Project', back_populates='user')
 
@@ -27,7 +28,6 @@ class Project(Base):
 
 class Task(Base):
     __tablename__ = 'task'
-    # Check if tables are defined
 
 
     id = Column(Integer, primary_key=True)
