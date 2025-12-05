@@ -76,16 +76,49 @@ def add_task(project_name:str, name:str, status:int, deadline:str, description:s
     return task.id
 
 def get_user(name:str) -> User:
-    return session.query(User).filter_by(name=name).all()[0]
+    return session.query(User).filter_by(name=name).one_or_none()
 
 def get_project(name:str) -> Project:
-    return session.query(Project).filter_by(name=name).all()[0]
+    return session.query(Project).filter_by(name=name).one_or_none()
 
 def get_task(name:str) -> Task:
-    return session.query(Task).filter_by(name=name).all()[0]
+    return session.query(Task).filter_by(name=name).one_or_none()
 
 def gat_all_project(name:str):
     return session.query(Project).filter_by(owner=get_user(name=name).id).all()
 
 def gat_all_tasks(name:str):
     return session.query(Task).filter_by(owner=get_project(name=name).id).all()
+
+
+def edit_user(name, **kwargs):
+    user = get_user(name)
+    if 'name' in kwargs:
+        user.name = kwargs['name']
+    session.commit()
+
+
+def edit_project(name, **kwargs):
+    project = get_project(name)
+    if 'name' in kwargs:
+        project.name = kwargs['name']
+    elif 'description' in kwargs:
+        project.description = kwargs['description']
+    session.commit()
+
+
+def edit_task(name, **kwargs):
+    task = get_task(name)
+    if 'name' in kwargs:
+        task.name = kwargs['name']
+    elif 'description' in kwargs:
+        task.description = kwargs['description']
+    elif 'status' in kwargs:
+        task.status = kwargs['status']
+    elif 'deadline' in kwargs:
+        task.deadline = kwargs['deadline']
+    elif 'closed_at' in kwargs:
+        task.closed_at = kwargs['closed_at']
+    session.commit()
+
+
