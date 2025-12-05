@@ -84,10 +84,10 @@ def get_project(name:str) -> Project:
 def get_task(name:str) -> Task:
     return session.query(Task).filter_by(name=name).one_or_none()
 
-def gat_all_project(name:str):
+def get_all_projects(name:str):
     return session.query(Project).filter_by(owner=get_user(name=name).id).all()
 
-def gat_all_tasks(name:str):
+def get_all_tasks(name:str):
     return session.query(Task).filter_by(owner=get_project(name=name).id).all()
 
 
@@ -122,3 +122,22 @@ def edit_task(name, **kwargs):
     session.commit()
 
 
+def del_task(name:str):
+    task = get_task(name)
+    session.delete(task)
+    session.commit()
+
+
+def del_project(name:str):
+    project = get_project(name)
+    tasks = get_all_tasks(name)
+    for task in tasks:
+        del_task(task.name)
+    session.delete(project)
+
+def del_user(name: str):
+    user = get_user(name)
+    projects = get_all_projects(name)
+    for project in projects:
+        del_task(project.name)
+    session.delete(user)
