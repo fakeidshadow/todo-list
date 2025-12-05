@@ -59,24 +59,33 @@ def add_user(name:str) -> int:
     user = User(name=name)
     session.add(user)
     session.commit()
+    return user.id
 
 def add_project(username:str, name:str, description:str) -> int:
     user = get_user(name)
     project = Project(name=name, description=description, owner=user.id)
     session.add(project)
     session.commit()
+    return project.id
 
 def add_task(project_name:str, name:str, status:int, deadline:str, description:str, closed_at:str):
     project = get_project(name=project_name)
     task = Task(name=name, status=status, deadline=deadline, description=description, closed_at=closed_at, owner=project.id)
     session.add(task)
     session.commit()
+    return task.id
 
 def get_user(name:str) -> User:
-    pass
+    return session.query(User).filter_by(name=name).all()[0]
 
 def get_project(name:str) -> Project:
-    pass
+    return session.query(Project).filter_by(name=name).all()[0]
 
 def get_task(name:str) -> Task:
-    pass
+    return session.query(Task).filter_by(name=name).all()[0]
+
+def gat_all_project(name:str):
+    return session.query(Project).filter_by(owner=get_user(name=name).id).all()
+
+def gat_all_tasks(name:str):
+    return session.query(Task).filter_by(owner=get_project(name=name).id).all()
