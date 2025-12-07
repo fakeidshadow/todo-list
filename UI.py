@@ -1,5 +1,9 @@
-from User import User
 from custum_exception import CustomError
+import models
+from datetime import datetime
+import pytz
+
+tz = pytz.timezone('Asia/Tehran')
 
 PROJECT_IDX = -1
 
@@ -14,7 +18,6 @@ def print_main_menu():
     print('-1 -> exit')
 
 def start():
-    user = User()
     command = ''
     while command != '-1':
         print_main_menu()
@@ -23,22 +26,23 @@ def start():
             if command == '1':
                 name = input('Enter your project name: ')
                 description = input('Enter your project description: ')
-                user.add_project(name, description)
+                models.add_project(name, description)
             elif command == '2':
-                edit_project_tasks(user)
+                edit_project_tasks()
             elif command == '3':
                 name = input('Enter your project name: ')
                 new_name = input('Enter your project new name: ')
-                user.edit_project_name(name, new_name)
+                models.edit_project(name, name=new_name)
             elif command == '4':
                 name = input('Enter your project name: ')
                 new_description = input('Enter your project new description: ')
-                user.edit_project_description(name, new_description)
+                models.edit_project(name, description=new_description)
             elif command == '5':
                 name = input('Enter your project name: ')
-                user.del_project(name)
+                models.del_project(name)
             elif command == '6':
-                user.show_projects()
+                for project in models.get_all_projects():
+                    print(f'name: {project.name}\ndescription: {project.description}\nnumber of tasks: {len(models.get_all_tasks(project.name))}')
             elif command != '-1':
                 print('choose between options')
         except CustomError as e:
@@ -55,54 +59,57 @@ def print_edit_tasks_menu():
     print('7  -> show tasks')
     print('-1 -> exit')
 
-def edit_project_tasks(user:User):
-    global PROJECT_IDX
-    name = input('Enter your project name')
-    PROJECT_IDX = user.index(name)
-    if PROJECT_IDX == -1:
-        print('project doesnt exist')
-    else:
-        command = ''
-        while command != '-1':
-            print_edit_tasks_menu()
-            command = input()
-            try:
-                if command == '1':
-                    name = input('Enter your task neme: ')
-                    description = input('Enter your task description: ')
-                    status = input('Enter your task status(0:todo, 1:doing, 2:done): ')
-                    if status == '':
-                        status = '0'
-                    if not status in ['0', '1', '2']:
-                        raise CustomError('Enter valid status') 
-                    deadline = input('Enter your task deadline: ')
-                    user._projects[PROJECT_IDX].add_task(name, description, int(status), deadline)
-                elif command == '2':
-                    name = input('Enter your task name: ')
-                    new_name = input('Enter your task new name: ')
-                    user._projects[PROJECT_IDX].edit_task_name(name, new_name)
-                elif command == '3':
-                    name = input('Enter your task name: ')
-                    new_description = input('Enter your task new description: ')
-                    user._projects[PROJECT_IDX].edit_task_description(name, new_description)
-                elif command == '4':
-                    name = input('Enter your task name: ')
-                    new_status = input('Enter your task new status: ')
-                    if not status in ['0', '1', '2']:
-                        raise CustomError('Enter valid status') 
-                    user._projects[PROJECT_IDX].edit_task_status(name, int(new_status))
-                elif command == '5':
-                    name = input('Enter your task name: ')
-                    new_deadline = input('Enter your task new deadline: ')
-                    user._projects[PROJECT_IDX].edit_task_deadline(name, new_deadline)
-                elif command == '6':
-                    name = input('Enter your task name: ')
-                    user._projects[PROJECT_IDX].del_task(name)
-                elif command == '7':
-                    user._projects[PROJECT_IDX].show_tasks()
-                elif command != '-1':
-                    print('choose between options')
-            except CustomError as e:
-                print(e)
-                
+def edit_project_tasks():
+    project_name = input('Enter project_name: ')
+    if not models.get_project(project_name):
+        print('Project doesnt exists')
+        return
+    command = ''
+    while command != '-1':
+        print_edit_tasks_menu()
+        command = input()
+        try:
+            if command == '1':
+                name = input('Enter your task name: ')
+                description = input('Enter your task description: ')
+                status = input('Enter your task status(0:todo, 1:doing, 2:done): ')
+                if status == '':
+                    status = '0'
+                if not status in ['0', '1', '2']:
+                    raise CustomError('Enter valid status')
+                deadline = input('Enter your task deadline: ')
+                models.add_task(project_name=project_name, name=name, description=description, status=int(status), deadline=deadline, closed_at='')
+            elif command == '2':
+                name = input('Enter your task name: ')
+                new_name = input('Enter your task new name: ')
+                models.edit_task(name, name=new_name)
+            elif command == '3':
+                name = input('Enter your task name: ')
+                new_description = input('Enter your task new description: ')
+                models.edit_task(name, name=new_description)
+            elif command == '4':
+                name = input('Enter your task name: ')
+                new_status = input('Enter your task new status: ')
+                if not new_status in ['0', '1', '2']:
+                    raise CustomError('Enter valid status')
+                models.edit_task(name, status=new_status)
+                if new_status == '2':
+                    ct = datetime.now(tz)
+                    models.edit_task(name, closed_at=str(ct))
+            elif command == '5':
+                name = input('Enter your task name: ')
+                new_deadline = input('Enter your task new deadline: ')
+                models.edit_task(name, status=new_deadline)
+            elif command == '6':
+                name = input('Enter your task name: ')
+                models.del_task(name)
+            elif command == '7':
+                for task in models.get_all_tasks(project_name):
+                    print(f'name: {task.name}\ndescription: {task.description}\nstatus: {task.status}\ndeadline: {task.deadline}, closed at: {task.closed_at}')
+
+            elif command != '-1':
+                print('choose between options')
+        except CustomError as e:
+            print(e)
+
 
