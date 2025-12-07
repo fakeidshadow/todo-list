@@ -1,1 +1,5 @@
 python-dotenv
+pytz
+alembic
+psycopg2-binary
+sqlalchemy

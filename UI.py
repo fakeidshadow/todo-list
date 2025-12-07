@@ -1,4 +1,3 @@
-from User import User
 from custum_exception import CustomError
 import models
 from datetime import datetime
@@ -91,7 +90,7 @@ def edit_project_tasks():
             elif command == '4':
                 name = input('Enter your task name: ')
                 new_status = input('Enter your task new status: ')
-                if not status in ['0', '1', '2']:
+                if not new_status in ['0', '1', '2']:
                     raise CustomError('Enter valid status')
                 models.edit_task(name, status=new_status)
                 if new_status == '2':
@@ -105,7 +104,9 @@ def edit_project_tasks():
                 name = input('Enter your task name: ')
                 models.del_task(name)
             elif command == '7':
-                models.get_all_tasks(project_name)
+                for task in models.get_all_tasks(project_name):
+                    print(f'name: {task.name}\ndescription: {task.description}\nstatus: {task.status}\ndeadline: {task.deadline}, closed at: {task.closed_at}')
+
             elif command != '-1':
                 print('choose between options')
         except CustomError as e:

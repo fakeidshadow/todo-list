@@ -21,9 +21,9 @@ class Task(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(30), unique=True)
     status = Column(Integer, default=0)
-    deadline = Column(String(20))
+    deadline = Column(String(50))
     description = Column(String(150))
-    closed_at = Column(String(20), default='')
+    closed_at = Column(String(50), default='')
 
     owner = Column(Integer, ForeignKey('project.id'))
 
@@ -35,7 +35,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 
-engine = create_engine('postgresql+psycopg2://postgres:sec123@localhost:5432/todo_db', echo=True)
+engine = create_engine('postgresql+psycopg2://postgres:sec123@localhost:5432/todo_db', echo=False)
 
 Base.metadata.create_all(engine)
 
@@ -44,7 +44,6 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 def add_project(name:str, description:str) -> int:
-    user = get_user(name)
     project = Project(name=name, description=description)
     session.add(project)
     session.commit()
@@ -79,8 +78,8 @@ def edit_project(name, **kwargs):
     session.commit()
 
 
-def edit_task(name, **kwargs):
-    task = get_task(name)
+def edit_task(n, **kwargs):
+    task = get_task(n)
     if 'name' in kwargs:
         task.name = kwargs['name']
     if 'description' in kwargs:
