@@ -2,6 +2,10 @@ from custum_exception import CustomError
 import models
 from datetime import datetime
 import pytz
+import schedule
+import scheduler
+
+schedule.every().day.at("00:00", "Asia/Tehran").do(scheduler.end_tasks())
 
 tz = pytz.timezone('Asia/Tehran')
 
@@ -20,6 +24,7 @@ def print_main_menu():
 def start():
     command = ''
     while command != '-1':
+        schedule.run_pending()
         print_main_menu()
         command = input()
         try:
