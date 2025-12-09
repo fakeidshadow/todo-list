@@ -1,6 +1,8 @@
 
 from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.exc import IntegrityError
+from custum_exception import CustomError
 
 Base = declarative_base()
 metadata = Base.metadata
@@ -46,14 +48,20 @@ session = Session()
 def add_project(name:str, description:str) -> int:
     project = Project(name=name, description=description)
     session.add(project)
-    session.commit()
+    try:
+        session.commit()
+    except IntegrityError:
+        raise CustomError('project Exists')
     return project.id
 
 def add_task(project_name:str, name:str, status:int, deadline:str, description:str, closed_at:str):
     project = get_project(name=project_name)
     task = Task(name=name, status=status, deadline=deadline, description=description, closed_at=closed_at, owner=project.id)
     session.add(task)
-    session.commit()
+    try:
+        session.commit()
+    except IntegrityError:
+        raise CustomError('Task exists')
     return task.id
 
 def get_project(name:str) -> Project:
@@ -71,37 +79,55 @@ def get_all_tasks(name:str):
 
 def edit_project(name, **kwargs):
     project = get_project(name)
-    if 'name' in kwargs:
-        project.name = kwargs['name']
-    elif 'description' in kwargs:
-        project.description = kwargs['description']
-    session.commit()
+    if project:
+        if 'name' in kwargs:
+            project.name = kwargs['name']
+        elif 'description' in kwargs:
+            project.description = kwargs['description']
+        session.commit()
+        raise CustomError("project edited", 200)
+    else:
+        raise CustomError('Project doesnt exist')
 
 
 def edit_task(n, **kwargs):
     task = get_task(n)
-    if 'name' in kwargs:
-        task.name = kwargs['name']
-    if 'description' in kwargs:
-        task.description = kwargs['description']
-    if 'status' in kwargs:
-        task.status = kwargs['status']
-    if 'deadline' in kwargs:
-        task.deadline = kwargs['deadline']
-    if 'closed_at' in kwargs:
-        task.closed_at = kwargs['closed_at']
-    session.commit()
+    if task:
+        if 'name' in kwargs:
+            task.name = kwargs['name']
+        if 'description' in kwargs:
+            task.description = kwargs['description']
+        if 'status' in kwargs:
+            task.status = kwargs['status']
+        if 'deadline' in kwargs:
+            task.deadline = kwargs['deadline']
+        if 'closed_at' in kwargs:
+            task.closed_at = kwargs['closed_at']
+        session.commit()
+        raise CustomError("task edited", 0)
+    else:
+        raise CustomError('Task doesnt exist')
 
 
 def del_task(name:str):
     task = get_task(name)
-    session.delete(task)
-    session.commit()
+    if task:
+        session.delete(task)
+        session.commit()
+        raise CustomError("task deleted", 0)
+    else:
+        raise CustomError('Task doesnt exist')
 
 
 def del_project(name:str):
     project = get_project(name)
-    tasks = get_all_tasks(name)
-    for task in tasks:
-        del_task(task.name)
-    session.delete(project)
+    if project:
+        tasks = get_all_tasks(name)
+        for task in tasks:
+            del_task(task.name)
+        session.delete(project)
+        raise CustomError("peoject deleted", 0)
+
+    else:
+        raise CustomError('Project doesnt exist')
+
